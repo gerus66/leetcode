@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/difference-between-ones-and-zeros-in-row-and-column
 # medium
-# biweekly contest 92 - virtual
+# biweekly contest 92
 from typing import List
 
 

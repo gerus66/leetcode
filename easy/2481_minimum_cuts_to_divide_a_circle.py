@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/minimum-cuts-to-divide-a-circle
 # easy
-# biweekly contest 92 - virtual
+# biweekly contest 92
 
 class Solution:
     def numberOfCuts(self, n: int) -> int:
