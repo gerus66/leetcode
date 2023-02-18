@@ -1,7 +1,7 @@
 # https://leetcode.com/problems/minimum-common-value
 # easy
 # biweekly contest 96
-import List
+from typing import List
 
 
 class Solution:
