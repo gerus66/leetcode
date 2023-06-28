@@ -3,7 +3,7 @@
 import argparse
 from enum import Enum
 import os
-from typing import List
+from typing import List, Optional
 
 
 class WrongName(Exception):
@@ -14,7 +14,7 @@ class TaskName:
     Level = Enum('Level', ['easy', 'medium', 'hard'])
 
     words: List
-    level: Level
+    level: Optional[Level] = None
 
     def __init__(self, name, level):
         self.words = name.lower().split()
@@ -24,8 +24,10 @@ class TaskName:
         for e in self.Level:
             if e.name[0] == level:
                 self.level = e
-                return
-        raise WrongName(f'level should be one of {[e.name for e in self.Level]}')
+        if self.level is None:
+            raise WrongName(f'level should be one of {[e.name for e in self.Level]}')
+        if os.path.isfile(self.get_file_path()):
+            raise WrongName(f'task {self.get_file_path()} already exists')
 
     def get_link(self) -> str:
         base = "https://leetcode.com/problems/"
@@ -62,6 +64,8 @@ if __name__ == '__main__':
     parser.add_argument('name', help='name of task, should start with number')
     parser.add_argument('-l', '--level', choices=['e', 'm', 'h'], default='e',
                         help='level of task: [e]asy, [m]edium or [h]ard')
-    parser.add_argument('-c', '--context', help='some context about task, for example: daily, contest N, etc.')
+    parser.add_argument('-c', '--context',
+                        help='some context about task, for example: daily, contest N, etc.',
+                        default='daily')  # practice - missed daily
     args = parser.parse_args()
     make_template(args.name, args.level, args.context)
